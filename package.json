@@ -1,0 +1,11 @@
+{
+  "name": "pizzaorder",
+  "version": "1.0.0",
+  "description": "\"A pizza ordering app\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tawanda moyo",
+  "license": "ISC"
+}

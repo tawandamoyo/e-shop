@@ -1,0 +1,8 @@
+.pizza-container {
+    height: 120px;
+    cursor: pointer;
+}
+
+img {
+    height: 100%;
+}

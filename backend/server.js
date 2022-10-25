@@ -1,6 +1,8 @@
 const express = require('express');
 const client = require('./pgconfig');
 const morgan = require('morgan');
+const { query } = require('express');
+const path = require('path');
 
 const app = express();
 app.use(express.json());
@@ -17,8 +19,8 @@ const pizzaTypeToppings = {
   "Chicago": ['mozzarella cheese', 'bacon', 'mushroom', 'green chilli', 'pineapple', 'olives']
 };
 
-app.listen(3001, async () => {
-  console.log('App is listening on port' + ' 3001');
+app.listen(3000, async () => {
+  console.log('App is listening on port' + ' 3000');
   await client.connect();
   console.log('Database is now connecting');
 });
@@ -26,11 +28,78 @@ app.listen(3001, async () => {
 app.get('/toppings', async(req, res) => {
   let toppings = await client.query('select * from toppings;');
   res.send(toppings.rows);
-})
+});
+
+app.put('/price', async (req, res) => {
+  const {
+    type,
+    size,
+    toppings,
+  } = req.body;
+
+  console.log(req.body);
+
+  // let allToppings = toppings.concat(pizzaTypeToppings[type]);
+
+  const getBasePrice = await client.query(
+    `SELECT price FROM pizza_prices WHERE size = '${size}';`
+  );
+
+  const basePrice = getBasePrice.rows[0].price;
+  let totalToppingsPrice;
+
+  if (toppings.length > 0) {
+    const getToppingPrices = await client.query(
+      `
+      SELECT price FROM topping_prices
+      WHERE size = '${size}' 
+      AND topping_name 
+      IN (${
+            toppings.map(topping => {
+              return `'${topping}'`;
+            }).join(', ')
+          });
+      `
+    );
+
+    let toppingPrices = getToppingPrices.rows;
+    totalToppingsPrice = sumToppingsPrice(toppingPrices, 'price');
+
+    function sumToppingsPrice(toppingPrices, prop) {
+      return toppingPrices.reduce((a, b) => {
+        return a + b[prop];
+      }, 0)
+    }
+  } else {
+    totalToppingsPrice = 0;
+  }
+
+  // const getToppingPrices = await client.query(
+  //   `
+  //   SELECT price FROM topping_prices
+  //   WHERE size = '${size}' 
+  //   AND topping_name 
+  //   IN (${
+  //         toppings.map(topping => {
+  //           return `'${topping}'`;
+  //         }).join(', ')
+  //       });
+  //   `
+  // );
+
+  let totalPrice = basePrice + totalToppingsPrice;
+
+  res.send({
+    price: totalPrice
+  });
+ 
+  // res.send({
+  //   price: basePrice + sum(toppingPrices)
+  // });
+});
 
 app.post('/order', async(req, res) => {
   let pizzaOrder = req.body;
-  console.log(pizzaOrder);
   // 1. INSERT query for order
   let order = await client.query(insertNewOrderQuery());
   let order_id = order.rows[0].id;
@@ -77,7 +146,7 @@ function insertNewToppingsQuery(pizzaOrderId, toppings) {
   let toppingsCount = {};
   for (let topping of toppings) {
     if (toppingsCount[topping]) {
-      toppingsCount[topping] +=1;
+      toppingsCount[topping] += 1;
     } else {
       toppingsCount[topping] = 1;
     }
@@ -94,7 +163,14 @@ function insertNewToppingsQuery(pizzaOrderId, toppings) {
   `
 };
 
+function sum(arr) {
+  return arr.reduce((a, b) => { return a + b }, 0)
+}
 
 process.on('exit', () => {
   client.end();
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'static', 'index.html'));
 });

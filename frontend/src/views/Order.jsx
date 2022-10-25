@@ -6,6 +6,7 @@ import Pizza from '../components/Pizza.jsx';
 import './Order.css'
 import Button from '../components/Button.jsx';
 import Nav from '../components/Nav.jsx';
+import PriceBox from '../components/PriceBox.jsx';
 
 function Order() {
   const location = useLocation();
@@ -24,10 +25,6 @@ function Order() {
       setToppingsList(data.data.map(e => e.name));
     })();
   }, []);
-
-  useEffect(()=> {
-    console.log(size, toppings);
-  });
 
   async function handleClick() {
 
@@ -76,7 +73,7 @@ function Order() {
         <Pizza/>
         <div className='pizza-size'>
           <h3>Select Pizza size</h3>
-          <input type="radio" value="regular" name="size" checked={size === "regular"} onChange={selectSize}/> Regular
+          <input type="radio" value="small" name="size" checked={size === "small"} onChange={selectSize}/> Small
           <input type="radio" value="medium" name="size" checked={size === "medium"} onChange={selectSize}/> Medium
           <input type="radio" value="large" name="size" checked={size === "large"} onChange={selectSize}/> Large
         </div>
@@ -94,6 +91,7 @@ function Order() {
           ))}
           
         </div>
+        <PriceBox order={{'type': pizzaType, 'size': size, 'toppings': toppings}}/>
         <Button onClick={handleClick}/>
       </div>
     </>

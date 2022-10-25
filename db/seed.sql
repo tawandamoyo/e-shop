@@ -93,9 +93,9 @@ VALUES
 
 INSERT INTO topping_prices (topping_name, size, price)
 VALUES
-    ('bacon', 'small', 100),
-    ('bacon', 'medium', 50),
-    ('bacon', 'large', 75),
+    ('bacon', 'small', 50),
+    ('bacon', 'medium', 75),
+    ('bacon', 'large', 100),
 
     ('anchovy', 'small', 50),
     ('anchovy', 'medium', 75),

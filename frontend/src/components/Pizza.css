@@ -3,6 +3,8 @@
     cursor: pointer;
 }
 
-img {
-    height: 100%;
+.pizza-image {
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
 }

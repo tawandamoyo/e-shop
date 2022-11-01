@@ -1,14 +1,14 @@
 const express = require('express');
 const client = require('./pgconfig');
 const morgan = require('morgan');
-const { query } = require('express');
 const path = require('path');
+const port = process.env.PORT || 3000;
 
 const app = express();
-app.use(express.json());
-app.use(morgan('tiny'));
 
 app.use(express.static('./backend/static'));
+app.use(express.json());
+app.use(morgan('tiny'));
 
 const pizzaTypeToppings = {
   "Hawaiian": ['pineapple', 'tomato', 'cheese', 'ham'],
@@ -19,10 +19,13 @@ const pizzaTypeToppings = {
   "Chicago": ['mozzarella cheese', 'bacon', 'mushroom', 'green chilli', 'pineapple', 'olives']
 };
 
-app.listen(3000, async () => {
-  console.log('App is listening on port' + ' 3000');
+app.listen(port, async () => {
+  console.log(`
+    App is listening on port http://localhost:${port}; \n 
+    Now connecting to Database \n
+    Press Ctrl-C to terminate
+  `);
   await client.connect();
-  console.log('Database is now connecting');
 });
 
 app.get('/toppings', async(req, res) => {
@@ -38,8 +41,6 @@ app.put('/price', async (req, res) => {
   } = req.body;
 
   console.log(req.body);
-
-  // let allToppings = toppings.concat(pizzaTypeToppings[type]);
 
   const getBasePrice = await client.query(
     `SELECT price FROM pizza_prices WHERE size = '${size}';`
@@ -74,57 +75,42 @@ app.put('/price', async (req, res) => {
     totalToppingsPrice = 0;
   }
 
-  // const getToppingPrices = await client.query(
-  //   `
-  //   SELECT price FROM topping_prices
-  //   WHERE size = '${size}' 
-  //   AND topping_name 
-  //   IN (${
-  //         toppings.map(topping => {
-  //           return `'${topping}'`;
-  //         }).join(', ')
-  //       });
-  //   `
-  // );
-
   let totalPrice = basePrice + totalToppingsPrice;
 
   res.send({
     price: totalPrice
   });
- 
-  // res.send({
-  //   price: basePrice + sum(toppingPrices)
-  // });
+
 });
 
 app.post('/order', async(req, res) => {
   let pizzaOrder = req.body;
+  console.log(pizzaOrder);
+  const deliveryAddress = pizzaOrder.deliveryAddress;
+
   // 1. INSERT query for order
-  let order = await client.query(insertNewOrderQuery());
+  let order = await client.query(insertNewOrderQuery(deliveryAddress));
   let order_id = order.rows[0].id;
-  console.log("id is " + order_id);
-  console.log(order);
+
   // 2. INSERT query for pizzas
   let pizza = await client.query(insertNewPizzaQuery(pizzaOrder.size,pizzaOrder.base, order_id, 1));
   let pizzaOrderId = pizza.rows[0].id;
 
   // 3. INSERT toppings query
   let allToppings = pizzaOrder.toppings.concat(pizzaTypeToppings[pizzaOrder.type]);
-  console.log(allToppings);
-  let orderToppings = await client.query(insertNewToppingsQuery(pizzaOrderId, allToppings))
+  await client.query(insertNewToppingsQuery(pizzaOrderId, allToppings))
 
   setTimeout(() => {
     res.sendStatus(200);
   }, 2000);
-})
+});
 
-function insertNewOrderQuery() {
+function insertNewOrderQuery(address) {
   return `
-    INSERT INTO orders (status, made_in_house)
+    INSERT INTO orders (status, delivery_address)
     VALUES
     
-     ('pending', TRUE)
+     ('pending', '${address}')
 
      RETURNING id;
   `

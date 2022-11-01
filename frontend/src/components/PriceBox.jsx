@@ -11,12 +11,12 @@ export default function PriceBox(props) {
             const serverResponse = await axios.put('/price', order);
             setPrice(serverResponse.data.price);
         })();
-    });
+    }, [order]);
 
     return (
         <>
             <h2>total price</h2>
-            <p>Price: {price}</p>
+            <h3>Price: {price}</h3>
         </>
     )
 }

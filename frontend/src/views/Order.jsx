@@ -10,19 +10,20 @@ import PriceBox from '../components/PriceBox.jsx';
 
 function Order() {
   const location = useLocation();
-  const [loading, setLoading] = useState(false);
+  const pizzaType = location.state.pizzaType;
+  const deliveryAddress = location.state.address;
   const [size, setSize] = useState('medium');
   const [base, setBase] = useState('traditional');
   const [toppings, setToppings] = useState([]);
- 
   const [toppingsList, setToppingsList] = useState([]);
-  let pizzaType = location.state.pizzaType;
+  const [loading, setLoading] = useState(false);
+  console.log(`your delivery address is ${deliveryAddress}`)
 
   useEffect(()=> {
     (async()=> {
-      let data = await axios.get('/toppings');
-      console.log(data.data);
-      setToppingsList(data.data.map(e => e.name));
+      let getToppings = await axios.get('/toppings');
+      console.log(getToppings.data);
+      setToppingsList(getToppings.data.map(e => e.name));
     })();
   }, []);
 
@@ -32,10 +33,12 @@ function Order() {
     setLoading(true);
     // send request to server
     await axios.post('/order', {
-      "size": size,
       "type": pizzaType,
+      "size": size,
+      "base": base,
       "toppings": toppings,
-      "base": base
+      "deliveryAddress": deliveryAddress
+      
     })
     // set set to not loading
     setLoading(false);
@@ -48,7 +51,6 @@ function Order() {
   function selectBase (e) {
     setBase(e.target.value);
   }
-
 
   function toggleToppings(event) {
     let topping = event.target.value;

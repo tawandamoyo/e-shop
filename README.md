@@ -16,7 +16,6 @@ The backend is in `backend`.
 
 Frontend is React.
 
-
 ### db
 
 The database is PostgreSQL
@@ -31,7 +30,7 @@ run:
 npm install
 ```
 
-run 
+run
 
 ```bash
 npm run seed

@@ -2,7 +2,7 @@ const express = require('express');
 const client = require('./pgconfig');
 const morgan = require('morgan');
 const path = require('path');
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 const app = express();
 

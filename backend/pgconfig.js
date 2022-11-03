@@ -1,20 +1,7 @@
+const secrets = require('../secrets.json');
+
 const { Client } = require('pg');
-
-const pgConfigObj = {
-  user: 'postgres',
-  host: 'localhost',
-  database: 'pizzaorders',
-  password: 'tawanda'
-};
-
-const client = new Client(pgConfigObj);
+const client = new Client(secrets);
 
 module.exports = client;
 
-
-
-
-
-
-// ALTER USER postgres WITH PASSWORD 'NEWPASS';
-// alter role postgres password null;

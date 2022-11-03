@@ -7,12 +7,7 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'backend/static'),
   },
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'backend/static'),
-    },
-    port: 9000,
-  },
+  devtool: 'source-map',
   module: {
     rules: [
       {

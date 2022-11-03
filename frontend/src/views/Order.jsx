@@ -5,7 +5,6 @@ import axios from 'axios';
 import Pizza from '../components/Pizza.jsx';
 import './Order.css'
 import Button from '../components/Button.jsx';
-import Nav from '../components/Nav.jsx';
 import PriceBox from '../components/PriceBox.jsx';
 
 function Order() {
@@ -17,12 +16,10 @@ function Order() {
   const [toppings, setToppings] = useState([]);
   const [toppingsList, setToppingsList] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.log(`your delivery address is ${deliveryAddress}`)
 
   useEffect(()=> {
     (async()=> {
       let getToppings = await axios.get('/toppings');
-      console.log(getToppings.data);
       setToppingsList(getToppings.data.map(e => e.name));
     })();
   }, []);
@@ -68,7 +65,6 @@ function Order() {
 
   return loading ? <div>loading</div> : (
     <>
-      {/* <Nav path="/" label="Home"/> */}
       <div className='order-container'>
         <h2>{pizzaType}</h2>
         <p className='pizzaDescription'>{pizzaType} - contains BBQ sauce with BBQ chicken and cheese</p>

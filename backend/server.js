@@ -40,8 +40,6 @@ app.put('/price', async (req, res) => {
     toppings,
   } = req.body;
 
-  console.log(req.body);
-
   const getBasePrice = await client.query(
     `SELECT price FROM pizza_prices WHERE size = '${size}';`
   );
@@ -85,7 +83,6 @@ app.put('/price', async (req, res) => {
 
 app.post('/order', async(req, res) => {
   let pizzaOrder = req.body;
-  console.log(pizzaOrder);
   const deliveryAddress = pizzaOrder.deliveryAddress;
 
   // 1. INSERT query for order

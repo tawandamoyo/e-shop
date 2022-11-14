@@ -5,7 +5,7 @@ import {
   Route,
 } from 'react-router-dom';
 import Home from './views/Home.jsx';
-import Order from './views/Order.jsx';
+// import Order from './views/Order.jsx';
 
 import './App.css';
 
@@ -14,7 +14,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/order" element={<Order />} />
+        {/* <Route path="/order" element={<Order />} /> */}
       </Routes>
     </BrowserRouter>
   );

@@ -1,6 +1,8 @@
 
 ## Description
 
+This is an ecommerce site built with NodeJS, Express,  React and PostgreSQL.
+
 ## Structure
 
 
@@ -10,11 +12,16 @@ The backend is in `backend`.
 
 ### Frontend
 
-Frontend is React.
+This project uses React as the frontend library and Redux for state management. The user interface is built using Material UI.
 
 ### db
 
-The database is PostgreSQL
+The database is PostgreSQL with Knex
+
+
+### Testing
+
+Tests are written with Jest and supertest.
 
 ## Installation
 

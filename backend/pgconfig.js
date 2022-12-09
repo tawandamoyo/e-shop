@@ -1,7 +1,10 @@
 const secrets = require('../secrets.json');
 
-const { Client } = require('pg');
-const client = new Client(secrets);
+const knex = require('knex')({
+    client: 'pg',
+    connection: { database: 'e_shop', user: secrets.user, password: secrets.password }
+  });
 
-module.exports = client;
+
+module.exports = knex;
 

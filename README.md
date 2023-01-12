@@ -1,7 +1,8 @@
 
 ## Description
 
-This is an ecommerce site built with NodeJS, Express,  React and PostgreSQL.
+This is an e-commerce site built with NodeJS, Express,  React and PostgreSQL. The specifications for this project are found at [specs](Specs.md).
+
 
 ## Structure
 
@@ -26,3 +27,4 @@ Tests are written with Jest and supertest.
 ## Installation
 
 This will start a dev server and the app will be available on http://localhost:3000
+

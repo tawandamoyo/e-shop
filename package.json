@@ -1,24 +1,35 @@
 {
-  "name": "pizzaorder",
+  "name": "e-shop",
   "version": "1.0.0",
   "description": "## Description",
   "main": "index.js",
   "scripts": {
-    "serve": "node backend/server.js",
+    "serve": "node backend/index.js",
     "dev": "npx webpack watch --config webpack.config.js --mode development",
-    "seed": "psql < db/seed.sql" 
+    "seed": "psql < db/seed.sql",
+    "test": "jest --detectOpenHandles --forceExit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.10.17",
+    "@react-oauth/google": "^0.5.1",
     "axios": "^0.27.2",
+    "cookie-parser": "^1.4.6",
     "express": "^4.18.1",
+    "google-auth-library": "^8.7.0",
+    "jest": "^29.3.1",
+    "knex": "^2.3.0",
     "morgan": "^1.10.0",
+    "passport-google-oauth20": "^2.0.0",
     "pg": "^8.7.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "supertest": "^6.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",

@@ -15,9 +15,9 @@ function Home() {
               }}
             />
             <button onClick={ async () => {
-                await axios.get('/order')
+                await axios.get('/logout')
             }}>
-                Click Here
+                Logout
             </button>
         </>
     )

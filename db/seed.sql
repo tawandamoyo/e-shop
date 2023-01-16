@@ -20,7 +20,7 @@ CREATE TABLE users
 (
     id              SERIAL,
     username        VARCHAR(100)    NOT NULL,
-    email           VARCHAR(100)    NOT NULL,
+    email           VARCHAR(100)    NOT NULL UNIQUE,
     role            role_type       NOT NULL
 );
 

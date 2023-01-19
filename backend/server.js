@@ -16,6 +16,7 @@ const app = express();
 app.use(express.static('./backend/static'));
 app.use(express.json());
 app.use(cookieParser(secrets.cookieSecret));
+app.use(authMiddleware);
 app.use(loginRouter);
 app.use(logoutRouter);
 app.use(userRouter);
@@ -27,5 +28,20 @@ app.use(productRouter);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'static', 'index.html'));
 });
+
+
+
+async function authMiddleware(req, res, next) {
+  const email = req.cookies.eshopLogin;
+  if(email) {
+    const [user] = await knex('users')
+    .select()
+    .where('email', email)
+    .returning('*');
+  
+  req.user = user;
+  }
+  next();
+}
 
 module.exports = app;

@@ -24,4 +24,21 @@ router.delete('/item/:id', () => {
   
 });
 
+router.post('/addProduct', async (req, res) => {
+  console.log(req.body);
+  console.log(req.user);
+
+  
+  await knex('products')
+    .insert({
+      product_title: req.body.productTitle,
+      product_desc: req.body.productDesc,
+      price: req.body.productPrice,
+      quantity: req.body.productQuantity,
+      image_url: req.body.productImageUrl,
+      seller_id: req.user.id
+    })
+  res.sendStatus(200)
+})
+
 module.exports = router;

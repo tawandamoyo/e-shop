@@ -1,6 +1,8 @@
 import React from "react";
 import { GoogleLogin } from '@react-oauth/google';
 import axios from "axios";
+import Button from "../components/Button";
+import ProductForm from "./ProductForm";
 
 function Home() {
     return (
@@ -14,11 +16,21 @@ function Home() {
                 console.log('login failed');
               }}
             />
-            <button onClick={ async () => {
+            <Button onClick={ async () => {
                 await axios.get('/logout')
             }}>
                 Logout
-            </button>
+            </Button>
+            <div>
+             {/* <Button>
+              Upload New Product
+             </Button> */}
+             <ProductForm>
+              
+             </ProductForm>
+            </div>
+            
+
         </>
     )
 };

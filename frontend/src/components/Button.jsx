@@ -1,9 +1,10 @@
 import React from 'react';
+import { Button } from '@mui/material';
 
-export default function Button({ onClick }) {
+export default function CustomButton({ onClick, children }) {
   return (
-    <button type="button" onClick={onClick}>
-      Order
-    </button>
+    <Button onClick={onClick} variant="contained">
+      {children}
+    </Button>
   );
 }

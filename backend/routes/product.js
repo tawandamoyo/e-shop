@@ -16,15 +16,19 @@ router.get('/item/:id', () => {
   
 });
 
-router.get('/items', () => {
+router.get('/items', async (req, res) => {
+  const products = await knex('products')
+    .select()
+    .returning('*')
   
+  res.send(products)
 });
 
 router.delete('/item/:id', () => {
   
 });
 
-router.post('/addProduct', async (req, res) => {
+router.post('/product', async (req, res) => {
   console.log(req.body);
   console.log(req.user);
 

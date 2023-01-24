@@ -40,6 +40,8 @@ async function authMiddleware(req, res, next) {
     .returning('*');
   
   req.user = user;
+  } else {
+    req.user = {}
   }
   next();
 }

@@ -32,7 +32,7 @@ CREATE TABLE products
     seller_id       INT             NOT NULL,
     price           INT             NOT NULL,
     quantity        INT,
-    image_url       VARCHAR(100),
+    image_url       TEXT,
     category        VARCHAR(100)
 );
 

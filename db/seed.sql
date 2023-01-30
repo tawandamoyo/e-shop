@@ -52,3 +52,21 @@ CREATE TABLE order_products
 
 INSERT INTO users (id, username, email, role)
 VALUES (1000001, 'admin', 'admin@eshop.com', 'seller');
+
+INSERT INTO products (product_title, product_desc, seller_id, price, quantity, image_url, category)
+VALUES 
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
+    ('kindle paperwhite', 'An excellent iphone', 1000001, 10000, 40, 'https://unsplash.com/photos/VEoUWF2iQlQ', 'electronics'),
+    ('Dell Monitor', 'Lovely 27 inch screen', 1000001, 25000, 50, 'https://unsplash.com/photos/UzbvepPfb14', 'electronics'),
+    ('Nokia 3310', 'An excellent phone, blast from the past', 1000001, 2000, 50, 'https://en.wikipedia.org/wiki/File:Nokia_3310_Blue_R7309170_(retouch).png#/media/File:Nokia_3310_Blue_R7309170_(retouch).png', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics')

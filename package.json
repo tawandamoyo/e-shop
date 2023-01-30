@@ -4,7 +4,7 @@
   "description": "## Description",
   "main": "index.js",
   "scripts": {
-    "serve": "node backend/index.js",
+    "serve": "nodemon backend/index.js",
     "dev": "npx webpack watch --config webpack.config.js --mode development",
     "seed": "psql < db/seed.sql",
     "test": "jest --detectOpenHandles --forceExit"
@@ -15,6 +15,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.10.17",
     "@react-oauth/google": "^0.5.1",
     "axios": "^0.27.2",

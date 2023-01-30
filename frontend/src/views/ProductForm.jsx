@@ -25,7 +25,7 @@ export default function ProductForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault;
-    await axios.post('/addProduct', productData);
+    await axios.post('/product', productData);
     await axios.get('/')
   }
   return (

@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { GoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,6 +14,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import Cart from './Cart';
+
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -125,7 +129,7 @@ function ResponsiveAppBar() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -153,6 +157,21 @@ function ResponsiveAppBar() {
                 </MenuItem>
               ))}
             </Menu>
+          </Box> */}
+          <Box sx={{ flexGrow: 0 }}>
+            <Cart/>
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+            <GoogleLogin
+                onSuccess={ async (credentialResponse) => {
+                  await axios.post('/login', credentialResponse)
+                  }
+                }
+                onError={() => {
+                  console.log('login failed');
+                }}
+                useOneTap={true}
+            />
           </Box>
         </Toolbar>
       </Container>

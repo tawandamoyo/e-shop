@@ -1,5 +1,4 @@
 import React from "react";
-import { GoogleLogin } from '@react-oauth/google';
 import axios from "axios";
 import Button from "../components/Button";
 import ProductForm from "./ProductForm";
@@ -16,16 +15,8 @@ function Home() {
   }
     return (
         <>
-            <GoogleLogin
-              onSuccess={ async (credentialResponse) => {
-                await axios.post('/login', credentialResponse)
-                }
-              }
-              onError={() => {
-                console.log('login failed');
-              }}
-            />
-            <div>
+            
+            {/* <div>
               {categories.map((category) => {
                 return (
                  <div>
@@ -34,7 +25,7 @@ function Home() {
                  </div>
                 )
               })}
-            </div>
+            </div> */}
             <Button onClick={handleGetProductsClick}>
               See all products
             </Button>

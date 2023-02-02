@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '../components/Button';
 import axios from 'axios';
+import Product from '../components/Product';
 
 
 export default function Products() {
@@ -30,6 +31,7 @@ export default function Products() {
                 }
         )
     }, [products, searchQuery]);
+    console.log(products)
 
     return (
         <>
@@ -48,24 +50,9 @@ export default function Products() {
                 <div><h3>{searchQuery.length === 0 ? 'Products' : 'Search Results'}</h3></div>
                 {filteredProducts.map((product, index) => {
                     return (
-                        <Card key = {index} sx={{ maxWidth: 345 }}>
-                            <CardMedia
-                                sx={{ height: 140 }}
-                                image={product.image_url}
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                {product.product_title}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                {product.product_desc}
-                                </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small">View</Button>
-                                <Button size="small">Add to Cart</Button>
-                            </CardActions>
-                        </Card>
+                        <Product 
+                            product={product} key = {index}
+                        />
                     )
                 })}
             </div>

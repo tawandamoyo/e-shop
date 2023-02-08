@@ -55,18 +55,18 @@ VALUES (1000001, 'admin', 'admin@eshop.com', 'seller');
 
 INSERT INTO products (product_title, product_desc, seller_id, price, quantity, image_url, category)
 VALUES 
-    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
-    ('kindle paperwhite', 'An excellent iphone', 1000001, 10000, 40, 'https://unsplash.com/photos/VEoUWF2iQlQ', 'electronics'),
-    ('Dell Monitor', 'Lovely 27 inch screen', 1000001, 25000, 50, 'https://unsplash.com/photos/UzbvepPfb14', 'electronics'),
-    ('Nokia 3310', 'An excellent phone, blast from the past', 1000001, 2000, 50, 'https://en.wikipedia.org/wiki/File:Nokia_3310_Blue_R7309170_(retouch).png#/media/File:Nokia_3310_Blue_R7309170_(retouch).png', 'electronics'),
-    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
-    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
-    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
-    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
-    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
-    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
-    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
-    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
-    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
-    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics'),
-    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://unsplash.com/photos/kFDVRCZWwlA', 'electronics')
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://media.wired.com/photos/5bcf71b1dc9f582b9e25a8d8/1:1/w_1200,h_1200,c_limit/iphone2_featured.jpg', 'electronics'),
+    ('kindle paperwhite', 'An excellent iphone', 1000001, 10000, 40, 'https://media.wired.com/photos/6154b830a28af156d45214e2/master/w_2580,c_limit/Gear-Amazon-Kindle-Paperwhite.jpg', 'electronics'),
+    ('Dell Monitor', 'Lovely 27 inch screen', 1000001, 25000, 50, 'https://m.media-amazon.com/images/I/81Nl5+gTuuL.jpg', 'electronics'),
+    ('Nokia 3310', 'An excellent phone, blast from the past', 1000001, 2000, 50, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQNOAVqrNS9bz4bwCeYBI1-optfHRT9Ny2lA&usqp=CAU', 'electronics'),
+    ('iphone 14', 'An excellent iphone', 1000001, 100000, 50, 'https://media.wired.com/photos/5bcf71b1dc9f582b9e25a8d8/1:1/w_1200,h_1200,c_limit/iphone2_featured.jpg', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://media.wired.com/photos/5bcf71b1dc9f582b9e25a8d8/1:1/w_1200,h_1200,c_limit/iphone2_featured.jpg', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://media.wired.com/photos/5bcf71b1dc9f582b9e25a8d8/1:1/w_1200,h_1200,c_limit/iphone2_featured.jpg', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://media.wired.com/photos/5bcf71b1dc9f582b9e25a8d8/1:1/w_1200,h_1200,c_limit/iphone2_featured.jpg', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://media.wired.com/photos/5bcf71b1dc9f582b9e25a8d8/1:1/w_1200,h_1200,c_limit/iphone2_featured.jpg', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://media.wired.com/photos/5bcf71b1dc9f582b9e25a8d8/1:1/w_1200,h_1200,c_limit/iphone2_featured.jpg', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://media.wired.com/photos/5bcf71b1dc9f582b9e25a8d8/1:1/w_1200,h_1200,c_limit/iphone2_featured.jpg', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://media.wired.com/photos/5bcf71b1dc9f582b9e25a8d8/1:1/w_1200,h_1200,c_limit/iphone2_featured.jpg', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://media.wired.com/photos/5bcf71b1dc9f582b9e25a8d8/1:1/w_1200,h_1200,c_limit/iphone2_featured.jpg', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://media.wired.com/photos/5bcf71b1dc9f582b9e25a8d8/1:1/w_1200,h_1200,c_limit/iphone2_featured.jpg', 'electronics'),
+    ('iphone 10', 'An excellent iphone', 1000001, 80000, 50, 'https://media.wired.com/photos/5bcf71b1dc9f582b9e25a8d8/1:1/w_1200,h_1200,c_limit/iphone2_featured.jpg', 'electronics')

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
+import AuthButton from './AuthButton';
 import axios from 'axios';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -14,7 +15,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import Cart from './Cart';
+import Cart from './CartIcon';
 
 
 const pages = ['Products', 'Pricing', 'Blog'];
@@ -40,7 +41,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -162,16 +163,7 @@ function ResponsiveAppBar() {
             <Cart/>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <GoogleLogin
-                onSuccess={ async (credentialResponse) => {
-                  await axios.post('/login', credentialResponse)
-                  }
-                }
-                onError={() => {
-                  console.log('login failed');
-                }}
-                useOneTap={true}
-            />
+            <AuthButton />
           </Box>
         </Toolbar>
       </Container>

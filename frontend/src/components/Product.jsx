@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useContext } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -8,17 +8,15 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '../components/Button';
 import axios from 'axios';
+import { CartContext } from '../contexts/CartContextProvider';
 
 export default function Product({product}) {
-    const addToCart = async () => {
-        await axios.put('/order', product);
-    }
+    const { addToCart } = useContext(CartContext)
 
-    const cartContents = []
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia
-                sx={{ height: 140 }}
+                sx={{ height: 140, objectFit: "contain" }}
                 image={product.image_url}
             />
             <CardContent>
@@ -30,8 +28,10 @@ export default function Product({product}) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">{product.price}</Button>
-                <Button size="small" onClick={addToCart}>Add to Cart</Button>
+                <Button size="small" style={{backgroundColor: "blue"}}>{`$ ${product.price/100}`}</Button>
+                <Button size="small" onClick={() => {
+                    addToCart(product)
+                }}>Add to Cart</Button>
             </CardActions>
         </Card>
     )

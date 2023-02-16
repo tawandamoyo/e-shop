@@ -1,7 +1,8 @@
 import React, { useState, createContext, useMemo} from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { AuthenticationContext } from "./AuthenticationContextProvider";
 
 const cartDefaults = {
     cart: [],
@@ -12,22 +13,35 @@ const cartDefaults = {
 export const CartContext = createContext(cartDefaults)
 
 export function CartContextProvider({ children }) {
+    const {authenticationStatus} = useContext(AuthenticationContext)
     const [cart, setCart] = useState([]);
     const addToCart = async (product) => {
         await axios.put('/order', product);
-        setCart(JSON.parse(Cookies.get('eshopCart')??'[]'))
+        if (authenticationStatus) {
+            const {datloga: cartContents} = await axios.get('/cart') ;
+            setCart(cartContents)
+        } else {
+            setCart(JSON.parse(Cookies.get('eshopCart')??'[]'))
+        }
     }
 
     useEffect(() => {
-        setCart(JSON.parse(Cookies.get('eshopCart')??'[]'))
-    }, [])
+        (async () => {
+            if (authenticationStatus) {
+                const {data: cartContents} = await axios.get('/cart') ;
+                setCart(cartContents)
+            } else {
+                setCart(JSON.parse(Cookies.get('eshopCart')??'[]'))
+            }
+        })();
+    }, [authenticationStatus])
 
     const value = useMemo(() => {
         return {
             cart,
             addToCart
         }
-    }, [cart, addToCart])
+    }, [cart, addToCart, authenticationStatus])
 
     return (
         <CartContext.Provider value={value}>

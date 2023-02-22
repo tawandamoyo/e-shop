@@ -6,7 +6,8 @@ import { AuthenticationContext } from "./AuthenticationContextProvider";
 
 const cartDefaults = {
     cart: [],
-    addToCart: () => {}
+    addToCart: () => {},
+    deleteFromCart: () => {}
 }
 
 
@@ -18,7 +19,17 @@ export function CartContextProvider({ children }) {
     const addToCart = async (product) => {
         await axios.put('/order', product);
         if (authenticationStatus) {
-            const {datloga: cartContents} = await axios.get('/cart') ;
+            const {data: cartContents} = await axios.get('/cart') ;
+            setCart(cartContents)
+        } else {
+            setCart(JSON.parse(Cookies.get('eshopCart')??'[]'))
+        }
+    }
+    const deleteFromCart = async (product) => {
+        console.log(product);
+        await axios.delete('/order', {data: {id: product.id}});
+        if (authenticationStatus) {
+            const {data: cartContents} = await axios.get('/cart') ;
             setCart(cartContents)
         } else {
             setCart(JSON.parse(Cookies.get('eshopCart')??'[]'))
@@ -39,9 +50,10 @@ export function CartContextProvider({ children }) {
     const value = useMemo(() => {
         return {
             cart,
-            addToCart
+            addToCart,
+            deleteFromCart
         }
-    }, [cart, addToCart, authenticationStatus])
+    }, [cart, addToCart, deleteFromCart, authenticationStatus])
 
     return (
         <CartContext.Provider value={value}>

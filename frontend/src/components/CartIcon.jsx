@@ -33,7 +33,6 @@ const style = {
 
 export default function CustomizedBadges() {
   const {cart} = useContext(CartContext);
-  console.log(cart);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);

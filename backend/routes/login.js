@@ -27,25 +27,24 @@ router.post('/login', async (req, res) => {
     if (req.cookies.eshopCart) {
         // add items in cart to db
         let cart = JSON.parse(req.cookies.eshopCart);
-        console.log(typeof cart);
-        const [{id: userId}] = await knex('users')
-            .select('id')
-            .where('email', userEmail)
-        
-        let itemsToInsert = cart.map((product) => {
-            return {
-                user_id: userId,
-                product_id: product.id,
-                quantity: product.quantity,
-                order_status: 'cart'
-            }
-        })
+        if (cart.length > 0) {
+            const [{id: userId}] = await knex('users')
+                .select('id')
+                .where('email', userEmail)
+            
+            let itemsToInsert = cart.map((product) => {
+                return {
+                    user_id: userId,
+                    product_id: product.id,
+                    order_status: 'cart'
+                }
+            })
 
-        await knex('orders')
-            .insert(itemsToInsert)
+            await knex('orders')
+                .insert(itemsToInsert)
+        }
 
     res.clearCookie('eshopCart');
-    console.log('cart cleared')
     }
     res.sendStatus(200);
 });

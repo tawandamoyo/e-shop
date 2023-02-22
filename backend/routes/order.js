@@ -16,11 +16,17 @@ router.get('/order', (req, res) => {
 
 router.get('/cart', async (req, res) => {
   const cart = await knex('orders')
+    .join('products', 'orders.product_id', '=', 'products.product_id')
     .select('*')
     .where({order_status: 'cart', user_id: req.user.id})
 
-    console.log('stored cart ', cart);
-    res.send(cart)
+    res.send(cart.map((item) => {
+      return {
+        title: item.product_title,
+        price: item.price,
+        id: item.product_id
+      }
+    }))
 });
 
 router.get('/order-history', () => {
@@ -57,22 +63,50 @@ router.put('/order', async (req, res) => {
       res.cookie('eshopCart', cartCookie)
     }
   } else {
-    console.log('someones logged in')
     await knex('orders')
       .insert({
         user_id: req.user.id,
         product_id: product.id,
-        quantity: product.quantity,
         order_status: 'cart'
       })
     res.clearCookie('eshopCart');
-    console.log('already logged in cart cleared')
   }
   res.sendStatus(200)
 })
 
-router.delete('/order', () => {
-  
+router.delete('/order', async (req, res) => {
+  // is logged in? then delete from cart db
+  if (req.user.id) {
+    const [item] = await knex('orders')
+          .where({'user_id':req.user.id, 'product_id':req.body.id, 'order_status': 'cart'})
+          .limit('1')
+    
+    await knex('orders')
+      .delete()
+      .where('order_id', item.order_id)        
+
+  } else {
+    let {id} = req.body
+    let cart = JSON.parse(req.cookies.eshopCart);
+    deleteProduct(cart, id);
+    cartCookie = JSON.stringify(cart)
+    res.cookie('eshopCart', cartCookie);
+
+    function deleteProduct(arr, id) {
+      let index;
+      for (let i =0; i < arr.length; i++) {
+        if (arr[i].id === id) {
+          index = i;
+          break;
+        }
+      }
+      return arr.splice(index, 1);
+    }
+  }
+
+  res.sendStatus(200);
+
+  // is not logged in? then just delete from cart
 });
 
 module.exports = router;

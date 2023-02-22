@@ -11,9 +11,8 @@ CREATE TYPE role_type AS ENUM
 
 CREATE TYPE status AS ENUM
 (
-    'pending',
-    'complete',
-    'deleted'
+    'cart',
+    'complete'
 );
 
 CREATE TABLE users
@@ -40,14 +39,8 @@ CREATE TABLE orders
 (
     order_id        SERIAL,
     user_id         INT NOT NULL,
-    order_status    status NOT NULL
-);
-
-CREATE TABLE order_products
-(
-    order_id        INT NOT NULL,
     product_id      INT,
-    quantity        INT
+    order_status    status NOT NULL
 );
 
 INSERT INTO users (id, username, email, role)

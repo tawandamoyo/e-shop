@@ -21,7 +21,6 @@ export default function Products() {
 
     async function getProducts() {
         const products = await axios.get('/items');
-        // console.log(products.data);
         setProducts(products.data);
     }
 
@@ -31,7 +30,6 @@ export default function Products() {
                 }
         )
     }, [products, searchQuery]);
-    console.log(products)
 
     return (
         <>

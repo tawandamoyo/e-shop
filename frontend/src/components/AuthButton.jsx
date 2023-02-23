@@ -6,7 +6,6 @@ import axios from "axios";
 
 export default function AuthButton() {
     const {authenticationStatus, onLogin, onLogout} = useContext(AuthenticationContext);
-    console.log(authenticationStatus);
     return (
         <>
             {authenticationStatus ? 

@@ -3,6 +3,7 @@ const knex = require('./pgconfig');
 const secrets = require('./pgconfig');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
 const userRouter = require('./routes/user');
@@ -13,6 +14,7 @@ const port = 3000;
 
 const app = express();
 
+app.use(logger('tiny'));
 app.use(express.static('./backend/static'));
 app.use(express.json());
 app.use(cookieParser(secrets.cookieSecret));

@@ -7,7 +7,7 @@ export default function Checkout() {
     return (
         <>  
            <h1>Checkout</h1>
-            <CartContents />
+                <CartContents />
             <Button> 
                 Make Payment 
             </Button>

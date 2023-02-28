@@ -2,7 +2,7 @@ const knex = require('../pgconfig');
 const {Router} = require('express');
 
 const router = Router();
-let cartCookie = false;
+// let cartCookie = false;
 
 router.post('/order', () => {
 
@@ -103,10 +103,43 @@ router.delete('/order', async (req, res) => {
       return arr.splice(index, 1);
     }
   }
-
   res.sendStatus(200);
-
-  // is not logged in? then just delete from cart
 });
+
+router.put('/buy', async (req, res) => {
+  
+  // get cart
+  const cart = await knex('orders')
+    .select('*')
+    .where({order_status: 'cart', user_id: req.user.id});
+
+
+  const productDetails = cart
+  .map((item) => item.product_id)
+  .filter((product_id, index, array) => array.indexOf(product_id) === index);
+
+  const productQuantity = productDetails
+    .map((itemCount, i) => ({
+      product_id: itemCount,
+      quantity: cart.filter(item => item.product_id === itemCount).length
+    }));
+
+  console.log(productQuantity);
+
+  await knex('orders')
+    .where({order_status: 'cart', user_id: req.user.id})
+    .update({
+      order_status: 'complete'
+    });
+
+  for (let i = 0; i < productQuantity.length; i++) {
+    product = productQuantity[i];
+    await knex('products')
+      .where('product_id', '=', product.product_id)
+      .decrement('quantity', product.quantity)
+  }
+  
+  res.sendStatus(200);
+})
 
 module.exports = router;

@@ -7,7 +7,8 @@ import { AuthenticationContext } from "./AuthenticationContextProvider";
 const cartDefaults = {
     cart: [],
     addToCart: () => {},
-    deleteFromCart: () => {}
+    deleteFromCart: () => {},
+    checkout: () => {}
 }
 
 
@@ -26,7 +27,6 @@ export function CartContextProvider({ children }) {
         }
     }
     const deleteFromCart = async (product) => {
-        console.log(product);
         await axios.delete('/order', {data: {id: product.id}});
         if (authenticationStatus) {
             const {data: cartContents} = await axios.get('/cart') ;
@@ -34,6 +34,11 @@ export function CartContextProvider({ children }) {
         } else {
             setCart(JSON.parse(Cookies.get('eshopCart')??'[]'))
         }
+    };
+
+    const checkout = async () => {
+        await axios.put('/buy');
+        setCart([]);
     }
 
     useEffect(() => {
@@ -51,9 +56,10 @@ export function CartContextProvider({ children }) {
         return {
             cart,
             addToCart,
-            deleteFromCart
+            deleteFromCart,
+            checkout
         }
-    }, [cart, addToCart, deleteFromCart, authenticationStatus])
+    }, [cart, addToCart, deleteFromCart, authenticationStatus, checkout])
 
     return (
         <CartContext.Provider value={value}>

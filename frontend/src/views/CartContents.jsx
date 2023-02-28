@@ -1,5 +1,5 @@
 import React, {useEffect, useContext} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -16,22 +16,14 @@ import Box from '@mui/material/Box';
 import { CartContext } from '../contexts/CartContextProvider';
 import { AuthenticationContext } from "../contexts/AuthenticationContextProvider";
 
-const style = {
-    position: 'absolute',
-    top: '0%',
-    left: '100%',
-    transform: 'translateX(-100%)',
-    maxWidth: '60%',
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
 
-export default function CartContents() {
+
+export default function CartContents(props) {
+    const {handleClose} = props;
     const {authenticationStatus} = useContext(AuthenticationContext);
     const {cart, deleteFromCart} = useContext(CartContext);
     const navigate = useNavigate();
+    const location = useLocation();
 
     function price(item) {
         return item.price;
@@ -45,7 +37,8 @@ export default function CartContents() {
 
 
     function checkout() {
-        if (!authenticationStatus) {
+        handleClose();
+        if (authenticationStatus) {
             navigate('/checkout')
         } else {
             alert('You need to log in first')
@@ -53,14 +46,14 @@ export default function CartContents() {
     }
     
   return (
-    <Box sx={style}>
+    <>
         <div>
             <h2>My Shopping Cart</h2>
             <p>You have {cart ? cart.length : 0 } products in your cart</p>
         </div>
         <div>
             <h3>Subtotal $ {totalPrice}</h3>
-            <Button onClick={checkout}>Secure Checkout</Button>
+            { location.pathname === '/checkout' ? null : <Button onClick={checkout}>Secure Checkout</Button>}
         </div>
     
         <TableContainer component={Paper}>
@@ -94,6 +87,6 @@ export default function CartContents() {
             </TableBody>
         </Table>
         </TableContainer>
-    </Box>
+    </>
   );
 }

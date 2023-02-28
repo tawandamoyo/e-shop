@@ -19,7 +19,7 @@ import CartContents from '../views/CartContents';
 
 
 export default function CustomModal(props) {
-    const {open, handleClose} = props;
+    const {open, handleClose, children, style} = props;
     
   return (
     <Modal
@@ -28,7 +28,9 @@ export default function CustomModal(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <CartContents />
+        <Box sx={style}>
+          {children}
+        </Box>
     </Modal>
   );
 }

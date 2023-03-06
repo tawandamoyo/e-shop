@@ -9,6 +9,8 @@ import secrets from '../../secrets.json';
 import Home from './views/Home.jsx';
 import Products from './views/Products';
 import Checkout from './views/Checkout';
+import ProductForm from './views/ProductForm';
+import OrderHistory from './views/OrderHistory';
 import NotFound404 from './views/NotFound404';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -24,6 +26,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/upload" element={<ProductForm />} />
+          <Route path="/order-history" element={<OrderHistory />} />
           <Route path="*" element={<NotFound404 />} />
 
         </Routes>

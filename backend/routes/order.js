@@ -26,11 +26,23 @@ router.get('/cart', async (req, res) => {
         price: item.price,
         id: item.product_id
       }
-    }))
+    }));
 });
 
-router.get('/order-history', () => {
-  // requires a customer id
+router.get('/order-history', async (req, res) => {
+  const userId = req.user.id;
+  const order = await knex('orders')
+    .join('products', 'orders.product_id', '=', 'products.product_id')
+    .select('*')
+    .where({'user_id': userId, 'order_status': 'complete'} )
+
+  res.send(order.map((item) => {
+    return {
+      orderId: item.order_id,
+      title: item.product_title,
+      price: item.price,
+    }
+  }));
 });
 
 router.get('/orders', () => {
@@ -115,16 +127,14 @@ router.put('/buy', async (req, res) => {
 
 
   const productDetails = cart
-  .map((item) => item.product_id)
-  .filter((product_id, index, array) => array.indexOf(product_id) === index);
+    .map((item) => item.product_id)
+    .filter((product_id, index, array) => array.indexOf(product_id) === index);
 
   const productQuantity = productDetails
     .map((itemCount, i) => ({
       product_id: itemCount,
       quantity: cart.filter(item => item.product_id === itemCount).length
     }));
-
-  console.log(productQuantity);
 
   await knex('orders')
     .where({order_status: 'cart', user_id: req.user.id})

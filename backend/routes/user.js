@@ -23,17 +23,21 @@ router.post('/user', async (req, res) => {
     
   });
   
-  router.get('/user/:id', async (req, res) => {
-    const data = await knex('users')
-      .select()
-      .where('id', req.params.id);
+  router.get('/user', async (req, res) => {
+    const [{role}] = await knex('users')
+      .select('role')
+      .where('id', req.user.id);
   
-    const user = data[0];
-    res.send(user);
+    res.send(role);
   })
   
-  router.put('/user', (req, res) => {
-    // edit user role
+  router.put('/user', async(req, res) => {
+    await knex('users')
+      .where('id', req.user.id)
+      .update('role', 'seller')
+
+    console.log('upgrade successful')
+    res.sendStatus(200)
   });
   
   router.delete('/user', () => {

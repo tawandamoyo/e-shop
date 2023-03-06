@@ -12,6 +12,7 @@ router.post('/login', async (req, res) => {
     const payload = loginToken.getPayload();
     const userEmail = payload.email;
     const username = payload.name.replaceAll(' ', '').toLowerCase();
+    console.log(payload);
 
     await knex('users')
         .insert({

@@ -6,7 +6,7 @@ import axios from "axios";
 import UserMenu from "./UserMenu";
 
 export default function AuthButton() {
-    const {authenticationStatus, onLogin, onLogout} = useContext(AuthenticationContext);
+    const {authenticationStatus, onLogin} = useContext(AuthenticationContext);
     return (
         <>
             {authenticationStatus ? 
